@@ -1,0 +1,15 @@
+Options -Indexes
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteRule ^(?:app|database|docs|scripts|storage)(?:/|$) - [F,L]
+</IfModule>
+
+<FilesMatch "^(?:\.env|\.htaccess|composer\.(?:json|lock)|package(?:-lock)?\.json)$">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Deny from all
+    </IfModule>
+</FilesMatch>
